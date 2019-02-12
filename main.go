@@ -32,10 +32,11 @@ var session *mgo.Session
 var errInvalidID = fmt.Errorf("Invalid ID")
 
 type shortURL struct {
-	ID       string      `json:"id" bson:"_id"`
-	URL      string      `json:"url" bson:"url"`
-	HitCount int         `json:"hitCount" bson:"hitCount,omitempty"`
-	Metadata interface{} `json:"meta" bson:"meta,omitempty"`
+	ID        string      `json:"id" bson:"_id"`
+	URL       string      `json:"url" bson:"url"`
+	HitCount  int         `json:"hitCount" bson:"hitCount,omitempty"`
+	Metadata  interface{} `json:"meta" bson:"meta,omitempty"`
+	CreatedOn int64       `json:"createdOn" bson:"createdOn"`
 }
 
 type shortenRequest struct {
@@ -157,8 +158,9 @@ func urlDetailsHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		su := &shortURL{
-			URL:      sq.URL,
-			Metadata: sq.Metadata,
+			URL:       sq.URL,
+			Metadata:  sq.Metadata,
+			CreatedOn: time.Now().Unix(),
 		}
 		mdHash := getMD5(sq.URL)
 		for i := 0; i <= len(mdHash)-8; i++ {

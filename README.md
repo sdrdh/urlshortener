@@ -16,7 +16,7 @@ $ ./urlshortener
 
 ```shell
 $ curl -X POST http://localhost:8080/shorten -d '{"url":"https://www.google.com","meta":{"blah":"blah"}}'
-{"id":"8ffdefbd","url":"https://www.google.com","hitCount":0,"meta":{"blah":"blah"}}
+{"id":"8ffdefbd","url":"https://www.google.com","hitCount":0,"meta":{"blah":"blah"},"createdOn":1549995556}
 $ curl http://localhost:8080/8ffdefbd
 <a href="https://www.google.com">Temporary Redirect</a>.
 ```
